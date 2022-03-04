@@ -46,8 +46,8 @@ jobs:
           tags: |
             jonasal/devpi-server:latest
             jonasal/devpi-server:${{ steps.tagger.outputs.APP_MAJOR }}
-            jonasal/devpi-server:${{ steps.tagger.outputs.APP_MAJOR }}.${{ steps.tagger.outputs.APP_MINOR }}
-            jonasal/devpi-server:${{ steps.tagger.outputs.APP_MAJOR }}.${{ steps.tagger.outputs.APP_MINOR }}.${{ steps.tagger.outputs.APP_PATCH }}
+            jonasal/devpi-server:${{ steps.tagger.outputs.APP_MINOR }}
+            jonasal/devpi-server:${{ steps.tagger.outputs.APP_PATCH }}
 
 
   docker_buildx_alpine:
@@ -79,5 +79,5 @@ jobs:
           tags: |
             jonasal/devpi-server:latest-alpine
             jonasal/devpi-server:${{ steps.tagger.outputs.APP_MAJOR }}-alpine
-            jonasal/devpi-server:${{ steps.tagger.outputs.APP_MAJOR }}.${{ steps.tagger.outputs.APP_MINOR }}-alpine
-            jonasal/devpi-server:${{ steps.tagger.outputs.APP_MAJOR }}.${{ steps.tagger.outputs.APP_MINOR }}.${{ steps.tagger.outputs.APP_PATCH }}-alpine
+            jonasal/devpi-server:${{ steps.tagger.outputs.APP_MINOR }}-alpine
+            jonasal/devpi-server:${{ steps.tagger.outputs.APP_PATCH }}-alpine
