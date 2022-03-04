@@ -1,0 +1,82 @@
+name: "build-server"
+
+on:
+  push:
+    branches:
+      - "main"
+      - "master"
+    paths:
+      - "server/**"
+      - ".github/workflows/**"
+  pull_request:
+    branches:
+      - "main"
+      - "master"
+    paths:
+      - "server/Dockerfile*"
+
+jobs:
+  docker_buildx_debian:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Perform setup steps
+        uses: JonasAlfredsson/checkout-qemu-buildx@v1
+        with:
+          should_login: ${{ github.event_name != 'pull_request' }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Extract version numbers from requirements.txt
+        id: tagger
+        run: bash .github/version_extractor.sh server/requirements.txt server
+
+      - name: Build and push latest Debian image
+        uses: docker/build-push-action@v2.9.0
+        with:
+          context: ./server
+          file: ./server/Dockerfile
+          platforms: |
+            linux/amd64
+            linux/386
+            linux/arm64
+            linux/arm/v7
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: |
+            jonasal/devpi-server:latest
+            jonasal/devpi-server:${{ steps.tagger.outputs.APP_MAJOR }}
+            jonasal/devpi-server:${{ steps.tagger.outputs.APP_MAJOR }}.${{ steps.tagger.outputs.APP_MINOR }}
+            jonasal/devpi-server:${{ steps.tagger.outputs.APP_MAJOR }}.${{ steps.tagger.outputs.APP_MINOR }}.${{ steps.tagger.outputs.APP_PATCH }}
+
+
+  docker_buildx_alpine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Perform setup steps
+        uses: JonasAlfredsson/checkout-qemu-buildx@v1
+        with:
+          should_login: ${{ github.event_name != 'pull_request' }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Extract version numbers from requirements.txt
+        id: tagger
+        run: bash .github/version_extractor.sh server/requirements.txt server
+
+      - name: Build and push latest Alpine image
+        uses: docker/build-push-action@v2.9.0
+        with:
+          context: ./server
+          file: ./server/Dockerfile-alpine
+          platforms: |
+            linux/amd64
+            linux/386
+            linux/arm64
+            linux/arm/v7
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: |
+            jonasal/devpi-server:latest-alpine
+            jonasal/devpi-server:${{ steps.tagger.outputs.APP_MAJOR }}-alpine
+            jonasal/devpi-server:${{ steps.tagger.outputs.APP_MAJOR }}.${{ steps.tagger.outputs.APP_MINOR }}-alpine
+            jonasal/devpi-server:${{ steps.tagger.outputs.APP_MAJOR }}.${{ steps.tagger.outputs.APP_MINOR }}.${{ steps.tagger.outputs.APP_PATCH }}-alpine
