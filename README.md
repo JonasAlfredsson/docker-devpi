@@ -6,9 +6,9 @@ Debian and Alpine versions available.
 [Devpi][3] allows you to host a local PyPi cache, along with the ability for you to
 add your own packages that you do not want to upload publicly.
 
-> :information: Docker tags use the same version numberings as the devpi packges
-> on PyPi ([server][5] & [client][6]), but can be viewed on DockerHub as well:
-> [server][7] & [client][8].
+> :information_source: Docker tags use the same version numberings as the devpi
+> packges on PyPi ([server][5] & [client][6]), but can be viewed on DockerHub
+> as well: [server][7] & [client][8].
 
 
 # Usage
