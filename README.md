@@ -170,12 +170,17 @@ pip install -i http://localhost:3141/local/stable private_package
 
 ## Upgrading
 
-> :warning: This is sort of experimental since I am having trouble finding
+> :warning: This is semi-experimental since I am having trouble finding
 > official documentation on the proper way to do this.
 
 The best guide on upgrading devpi server I could find was [this one][9], so
 I tried to integrate that into the entrypoint. It is not very automated, but
 you will at least have full control of what it is doing the entire time.
+
+> :information_source: You should also only have to do this procedure when
+> there is a change in the database schema. Such a change [will warrant][10] a
+> **major** version bump, so this process is not necessary if you are just
+> upgrading a **minor** or a **patch** version.
 
 Begin by stopping any of the currently running devpi containers, and then run
 the same image again with the `/export` folder mounted to initiate an export
@@ -185,11 +190,11 @@ process:
 docker run -it --rm -e DEVPI_PASSWORD=password \
     -v $(pwd)/data-server:/devpi/server \
     -v $(pwd)/tmp:/export \
-    jonasal/devpi-server:old
+    jonasal/devpi-server:old-tag
 ```
 
 If this is successful you should now rename the old data folder (don't delete
-it before you know the new one works)
+it before you know the new one works):
 
 ```bash
 sudo mv data-server data-server.bak
@@ -202,7 +207,7 @@ import process:
 docker run -it --rm -e DEVPI_PASSWORD=password \
     -v $(pwd)/data-server:/devpi/server \
     -v $(pwd)/tmp:/import \
-    jonasal/devpi-server:new
+    jonasal/devpi-server:new-tag
 ```
 
 When this one completes you can go back to running the image normally without
@@ -242,3 +247,4 @@ following sources, perhaps they are useful for you too:
 [7]: https://hub.docker.com/repository/docker/jonasal/devpi-server/tags?page=1&ordering=last_updated
 [8]: https://hub.docker.com/repository/docker/jonasal/devpi-client/tags?page=1&ordering=last_updated
 [9]: https://gist.github.com/kyhau/7707c6dfa25c2e14e345
+[10]: https://github.com/devpi/devpi/issues/439#issuecomment-1064329177
