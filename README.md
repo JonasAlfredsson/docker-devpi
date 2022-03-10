@@ -25,8 +25,8 @@ any point in using the client.
 ### Run it
 
 The `DEVPI_PASSWORD` environment variable will set the root password on the
-first startup of this image. This is not needed for future runs unless you empty
-the data folder.
+first startup of this image. Set it to something more secure than what I use
+as an example here.
 
 ```bash
 docker run -it -p 3141:3141 \
