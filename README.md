@@ -25,7 +25,7 @@ any point in using the client.
 ### Run it
 
 The `DEVPI_PASSWORD` environment variable will set the root password on the
-first run of this image. This is not needed for future run unless you empty
+first startup of this image. This is not needed for future runs unless you empty
 the data folder.
 
 ```bash
@@ -39,8 +39,18 @@ The command will also host mount the data directory from the server to your
 local folder, in order to persist data between restarts.
 
 > The first time this container is started a full re-index of the upstream PyPi
-> will start, so the logs might be spammed with "Committing 2500 new documents
-> to search index." for a while.
+> will commence, so the logs might be spammed with "Committing 2500 new
+> documents to search index." for a while.
+
+It is possible to customize the devpi instance with any of the available
+[arguments][1] by appending them to the command displayed above:
+
+```bash
+docker run -it <...> jonasal/devpi-server:latest \
+    --threads 4 \
+    --debug
+```
+
 
 ## Client
 
