@@ -1,15 +1,18 @@
 #!/bin/sh
 set -e
 
+# Helper function used to make all logging messages look similar.
 log() {
     echo "$(date '+%Y-%m-%d %H:%M:%S,000') $1 [entrypoint] $2"
 }
 
+# Check that we have some kind of password for the root user.
 if [ -z "${DEVPI_PASSWORD}" ]; then
     log "ERROR" "Root password cannot be empty"
     exit 1
 fi
 
+# Perform an export and exit in case the /export folder exists.
 if [ -d "/export" ]; then
     log "INFO" "Exporting current database"
     devpi-export $@ /export
@@ -17,6 +20,7 @@ if [ -d "/export" ]; then
     exit 0
 fi
 
+# Perform an import and exit in case the /import folder exists.
 if [ -d "/import" ]; then
     log "INFO" "Beginning import of data"
     devpi-import --root-passwd "${DEVPI_PASSWORD}" $@ /import
