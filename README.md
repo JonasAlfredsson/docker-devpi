@@ -168,6 +168,53 @@ pip install -i http://localhost:3141/local/stable private_package
 ```
 
 
+## Upgrading
+
+> :warning: This is sort of experimental since I am having trouble finding
+> official documentation on the proper way to do this.
+
+The best guide on upgrading devpi server I could find was [this one][9], so
+I tried to integrate that into the entrypoint. It is not very automated, but
+you will at least have full control of what it is doing the entire time.
+
+Begin by stopping any of the currently running devpi containers, and then run
+the same image again with the `/export` folder mounted to initiate an export
+process:
+
+```bash
+docker run -it --rm -e DEVPI_PASSWORD=password \
+    -v $(pwd)/data-server:/devpi/server \
+    -v $(pwd)/tmp:/export \
+    jonasal/devpi-server:old
+```
+
+If this is successful you should now rename the old data folder (don't delete
+it before you know the new one works)
+
+```bash
+sudo mv data-server data-server.bak
+```
+
+Run the new image with the `/import` folder mounted in order to initiate an
+import process:
+
+```bash
+docker run -it --rm -e DEVPI_PASSWORD=password \
+    -v $(pwd)/data-server:/devpi/server \
+    -v $(pwd)/tmp:/import \
+    jonasal/devpi-server:new
+```
+
+When this one completes you can go back to running the image normally without
+any of the `import/export` folders mounted. This should most likely give you a
+functional upgraded instance of devpi. Cleanup of the extra folders can be done
+with this simple command
+
+```bash
+sudo rm -r data-server.bak && sudo rm -r tmp
+```
+
+
 # Further Reading
 
 I got most of the information I needed to complete this project from the
@@ -177,6 +224,8 @@ following sources, perhaps they are useful for you too:
 - [Stefan Scherfke: Getting started with devpi](https://stefan.sofa-rockers.org/2017/11/09/getting-started-with-devpi/)
 - [@kyhau: devpiNotes.md](https://gist.github.com/kyhau/0b54386fe220877310b9)
 - [Mpho Mphego: How I Setup A Private Local PyPI Server Using Docker And Ansible](https://blog.mphomphego.co.za/blog/2021/06/15/How-I-setup-a-private-PyPI-server-using-Docker-and-Ansible.html)
+- [@kyhau: devpiServerUpgrade.md][9]
+
 
 
 
@@ -192,3 +241,4 @@ following sources, perhaps they are useful for you too:
 [6]: https://pypi.org/project/devpi-client/#history
 [7]: https://hub.docker.com/repository/docker/jonasal/devpi-server/tags?page=1&ordering=last_updated
 [8]: https://hub.docker.com/repository/docker/jonasal/devpi-client/tags?page=1&ordering=last_updated
+[9]: https://gist.github.com/kyhau/7707c6dfa25c2e14e345
