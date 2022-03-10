@@ -10,6 +10,20 @@ if [ -z "${DEVPI_PASSWORD}" ]; then
     exit 1
 fi
 
+if [ -d "/export" ]; then
+    log "INFO" "Exporting current database"
+    devpi-export $@ /export
+    log "INFO" "Export finished"
+    exit 0
+fi
+
+if [ -d "/import" ]; then
+    log "INFO" "Beginning import of data"
+    devpi-import --root-passwd "${DEVPI_PASSWORD}" $@ /import
+    log "INFO" "Import complete"
+    exit 0
+fi
+
 # Execute any potential shell scripts in the entrypoint.d/ folder.
 find "/entrypoint.d/" -follow -type f -print | sort -V | while read -r f; do
     case "${f}" in
