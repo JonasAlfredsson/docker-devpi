@@ -33,7 +33,7 @@ jobs:
         run: bash .github/version_extractor.sh server/requirements.txt server
 
       - name: Build and push latest Debian image
-        uses: docker/build-push-action@v3.0.0
+        uses: docker/build-push-action@v3.1.0
         with:
           context: ./server
           file: ./server/Dockerfile
@@ -66,7 +66,7 @@ jobs:
         run: bash .github/version_extractor.sh server/requirements.txt server
 
       - name: Build and push latest Alpine image
-        uses: docker/build-push-action@v3.0.0
+        uses: docker/build-push-action@v3.1.0
         with:
           context: ./server
           file: ./server/Dockerfile-alpine
