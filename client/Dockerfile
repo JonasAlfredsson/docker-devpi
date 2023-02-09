@@ -1,4 +1,4 @@
-FROM python:3.11.1
+FROM python:3.11.2
 
 ENV DEVPICLIENT_CLIENTDIR=/devpi/client
 RUN mkdir -p $DEVPICLIENT_CLIENTDIR
