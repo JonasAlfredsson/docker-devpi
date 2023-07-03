@@ -12,7 +12,7 @@ RUN set -ex && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
             build-essential \
-            libffi7 \
+            libffi8 \
             libffi-dev \
     && \
 # Install Python dependencies.
