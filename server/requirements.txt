@@ -1,2 +1,2 @@
-devpi-server==6.9.1
+devpi-server==6.9.2
 devpi-web==4.2.1
