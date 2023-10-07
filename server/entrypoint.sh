@@ -28,9 +28,18 @@ if [ -d "/import" ]; then
     exit 0
 fi
 
-# Execute any potential shell scripts in the entrypoint.d/ folder.
+# Execute any potential shell scripts in the entrypoint.d/ folder, or source
+# any file ending with ".envsh".
 find "/entrypoint.d/" -follow -type f -print | sort -V | while read -r f; do
     case "${f}" in
+        *.envsh)
+            if [ -x "${f}" ]; then
+                log "INFO" "Sourcing ${f}";
+                . "${f}"
+            else
+                log "INFO" "Ignoring ${f}, not executable";
+            fi
+            ;;
         *.sh)
             if [ -x "${f}" ]; then
                 log "INFO" "Launching ${f}";
@@ -40,7 +49,8 @@ find "/entrypoint.d/" -follow -type f -print | sort -V | while read -r f; do
             fi
             ;;
         *)
-            log "INFO" "Ignoring ${f}";;
+            log "INFO" "Ignoring ${f}"
+            ;;
     esac
 done
 
