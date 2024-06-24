@@ -1,13 +1,13 @@
 name: "build-server"
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - "main"
       - "master"
     paths:
       - "server/**"
-      - ".github/workflows/**"
   pull_request:
     branches:
       - "main"

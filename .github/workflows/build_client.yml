@@ -1,13 +1,13 @@
 name: "build-client"
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - "main"
       - "master"
     paths:
       - "client/**"
-      - ".github/workflows/**"
   pull_request:
     branches:
       - "main"
