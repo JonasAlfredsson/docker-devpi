@@ -1,1 +1,1 @@
-devpi-client==7.1.0
+devpi-client==7.2.0
