@@ -19,6 +19,6 @@ if [ -z "${version}" ]; then
     exit 1
 fi
 
-echo "::set-output name=APP_MAJOR::$(echo ${version} | cut -d. -f 1)"
-echo "::set-output name=APP_MINOR::$(echo ${version} | cut -d. -f 1-2)"
-echo "::set-output name=APP_PATCH::$(echo ${version} | cut -d. -f 1-3)"
+echo "APP_MAJOR=$(echo ${version} | cut -d. -f 1)"
+echo "APP_MINOR=$(echo ${version} | cut -d. -f 2)"
+echo "APP_PATCH=$(echo ${version} | cut -d. -f 3)"

@@ -29,8 +29,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Extract version numbers from requirements.txt
-        id: tagger
-        run: bash .github/version_extractor.sh client/requirements.txt client
+        run: bash .github/version_extractor.sh client/requirements.txt client >> $GITHUB_ENV
 
       - name: Build and push latest Debian image
         uses: docker/build-push-action@v6.18.0
@@ -45,9 +44,9 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             jonasal/devpi-client:latest
-            jonasal/devpi-client:${{ steps.tagger.outputs.APP_MAJOR }}
-            jonasal/devpi-client:${{ steps.tagger.outputs.APP_MINOR }}
-            jonasal/devpi-client:${{ steps.tagger.outputs.APP_PATCH }}
+            jonasal/devpi-client:${{ env.APP_MAJOR }}
+            jonasal/devpi-client:${{ env.APP_MAJOR }}.${{ env.APP_MINOR }}
+            jonasal/devpi-client:${{ env.APP_MAJOR }}.${{ env.APP_MINOR }}.${{ env.APP_PATCH }}
 
 
   docker_buildx_alpine:
@@ -62,8 +61,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Extract version numbers from requirements.txt
-        id: tagger
-        run: bash .github/version_extractor.sh client/requirements.txt client
+        run: bash .github/version_extractor.sh client/requirements.txt client >> $GITHUB_ENV
 
       - name: Build and push latest Alpine image
         uses: docker/build-push-action@v6.18.0
@@ -78,6 +76,6 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             jonasal/devpi-client:latest-alpine
-            jonasal/devpi-client:${{ steps.tagger.outputs.APP_MAJOR }}-alpine
-            jonasal/devpi-client:${{ steps.tagger.outputs.APP_MINOR }}-alpine
-            jonasal/devpi-client:${{ steps.tagger.outputs.APP_PATCH }}-alpine
+            jonasal/devpi-client:${{ env.APP_MAJOR }}-alpine
+            jonasal/devpi-client:${{ env.APP_MAJOR }}.${{ env.APP_MINOR }}-alpine
+            jonasal/devpi-client:${{ env.APP_MAJOR }}.${{ env.APP_MINOR }}.${{ env.APP_PATCH }}-alpine
