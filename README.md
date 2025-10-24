@@ -3,11 +3,12 @@
 Docker images for both [`devpi-server`][1] and [`devpi-client`][2], with both
 Debian and Alpine versions available.
 
-[Devpi][3] allows you to host a local PyPi cache, along with the ability for you to
-add your own packages that you do not want to upload publicly.
+[Devpi][3] allows you to host a local PyPi cache, along with the ability for you
+to add your own packages that you do not want to upload publicly. Its source
+code can be viewed in the [devpi GitHub repository][11].
 
-> :information_source: Docker tags use the same version numberings as the devpi
-> packges on PyPi ([server][5] & [client][6]), but can be viewed on DockerHub
+> :information_source: Docker tags use the same version numbering as the devpi
+> packages on PyPi ([server][5] & [client][6]), but can be viewed on DockerHub
 > as well: [server][7] & [client][8].
 
 
@@ -244,7 +245,8 @@ following sources, perhaps they are useful for you too:
 [4]: https://pypi.org/
 [5]: https://pypi.org/project/devpi-server/#history
 [6]: https://pypi.org/project/devpi-client/#history
-[7]: https://hub.docker.com/repository/docker/jonasal/devpi-server/tags?page=1&ordering=last_updated
-[8]: https://hub.docker.com/repository/docker/jonasal/devpi-client/tags?page=1&ordering=last_updated
+[7]: https://hub.docker.com/r/jonasal/devpi-server/tags
+[8]: https://hub.docker.com/r/jonasal/devpi-client/tags
 [9]: https://gist.github.com/kyhau/7707c6dfa25c2e14e345
 [10]: https://github.com/devpi/devpi/issues/439#issuecomment-1064329177
+[11]: https://github.com/devpi/devpi
