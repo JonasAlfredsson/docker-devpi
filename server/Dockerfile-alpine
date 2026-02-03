@@ -11,6 +11,7 @@ RUN apk add --no-cache \
         libffi \
         libffi-dev \
         cargo \
+        libgcc \
     && \
     pip install --no-cache-dir -r /requirements.txt \
     && \
