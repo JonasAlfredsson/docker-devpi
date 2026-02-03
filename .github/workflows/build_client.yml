@@ -41,6 +41,7 @@ jobs:
             linux/386
             linux/arm64
             linux/arm/v7
+            linux/riscv64
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             jonasal/devpi-client:latest
@@ -73,6 +74,7 @@ jobs:
             linux/386
             linux/arm64
             linux/arm/v7
+            linux/riscv64
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             jonasal/devpi-client:latest-alpine
