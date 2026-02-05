@@ -19,7 +19,7 @@ on:
 jobs:
   docker_buildx_debian:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 120
     steps:
       - name: Perform setup steps
         uses: JonasAlfredsson/checkout-qemu-buildx@v2
@@ -52,7 +52,7 @@ jobs:
 
   docker_buildx_alpine:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 240
     steps:
       - name: Perform setup steps
         uses: JonasAlfredsson/checkout-qemu-buildx@v2
