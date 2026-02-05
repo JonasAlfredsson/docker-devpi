@@ -1,4 +1,4 @@
-FROM python:3.14.2-slim
+FROM python:3.15.0a5-slim
 
 ENV DEVPISERVER_SERVERDIR=/devpi/server
 RUN mkdir -p $DEVPISERVER_SERVERDIR && \
