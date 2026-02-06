@@ -10,13 +10,18 @@ RUN apk add --no-cache \
         musl-dev \
         libffi \
         libffi-dev \
+        cargo \
+        libgcc \
     && \
     pip install --no-cache-dir -r /requirements.txt \
     && \
     apk del \
         gcc \
         musl-dev \
-        libffi-dev
+        libffi-dev \
+        cargo \
+    && \
+    rm -rf /root/.cache
 
 COPY entrypoint.sh /
 ENTRYPOINT [ "/entrypoint.sh" ]

@@ -14,6 +14,7 @@ RUN set -ex && \
             build-essential \
             libffi8 \
             libffi-dev \
+            cargo \
     && \
 # Install Python dependencies.
     pip install --no-cache-dir -r /requirements.txt && \
@@ -21,6 +22,7 @@ RUN set -ex && \
     apt-get remove --purge -y \
             build-essential \
             libffi-dev \
+            cargo \
     && \
     apt-get autoremove -y && \
     apt-get clean && \
